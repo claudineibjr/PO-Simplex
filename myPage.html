@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+		<link href="css/custom.css" rel="stylesheet" media="screen" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	</head>
+
+	<!--<nav class="navbar navbar-inverse">-->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" onclick="setTabActive('0')">Simplex</a>
+			</div>
+
+			<ul class="nav navbar-nav">
+				<li id="Tab0"><a href="#" onclick="setTabActive('0')">Home</a></li>
+				<li id="Tab1"><a href="#" onclick="setTabActive('1')">Page 1</a></li>
+				<li id="Tab2"><a href="#" onclick="setTabActive('2')">Page 2</a></li>
+				<li id="Tab3"><a href="#" onclick="setTabActive('3')">Page 3</a></li>
+			</ul>
+
+		</div>
+	</nav>
+
+	<body onload="onLoad()">
+		<script src="bootstrap/js/jquery-1.9.1.js"></script>
+		<script src="bootstrap/js/bootstrap.js"></script>
+		<script src="js/custom.js"></script>
+
+		<form>
+			<div class="CustomDiv">
+				<!--<div id="parameters">
+					<div id ="parameters" class="control-group">
+						<label class="control-label">Número de restrições</label>
+						<div class="controls">	<input type="text" id="txtNumRestricoes" placeholder="Restrições">	</div>
+					</div>
+					<button type="submit" class="btn btn-small btn-primary">Simplex</button>
+				</div>-->
+
+				<div id="Div0">					
+					<div style="background-color:#80BFFF"><p> d</p></div>
+				</div>
+				<div id="Div1"></div>
+				<div id="Div2"></div>
+				<div id="Div3"></div>
+
+			</div>
+		</form>
+		<footer class="footer">
+			<nav class="navbar navbar-inverse navbar-fixed-bottom">
+				<hr><b>Bruno Cesar Dias</b> 52676-2 | <b>Claudinei Brito Junior</b> 54552-1 | <b>Heloísa Nishimoto</b> 54026-9 | <b>Lorena J. Gasparelo</b> 54256-3<br>BCC  6º AS</hr>			
+			</nav>
+		</footer>
+
+	</body>
+</html>
