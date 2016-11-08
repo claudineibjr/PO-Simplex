@@ -58,9 +58,9 @@ function preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, ma
 		for (var j = 0; j < variaveisFolgaExcesso.length; j++){
 			variavelFolgaExcesso.push((i == restricoes.length ? preencheTabela_Aux(variaveisFolgaExcesso[j], maxZ) : preencheTabela_Aux(variaveisFolgaExcesso[j], restricoes[i][0], false)));
 		}
-		//alert("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
+		
 		tabela.push(linha, base, variavel, variavelFolgaExcesso, b);
-		console.log(showSimplexMatriz(tabela, true));
+		alert("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
 	}
 }
 function preencheTabela_Aux(variavel, restricao){
