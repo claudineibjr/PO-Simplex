@@ -1,5 +1,4 @@
 function onLoad(){
-	var tab = document.getElementById("Tab" + "0");	tab.setAttribute("class", "active");	
 	setTabActive(0);
 
 	calcSimplex();
