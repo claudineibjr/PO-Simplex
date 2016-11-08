@@ -60,7 +60,7 @@ function preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, ma
 		}
 		
 		tabela.push(linha, base, variavel, variavelFolgaExcesso, b);
-		alert("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
+		console.log("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
 	}
 }
 function preencheTabela_Aux(variavel, restricao){

@@ -114,6 +114,42 @@
 				</div>
 				<div id="Div3">
 					<!-- Aba 3 Sobre-->
+					<h1>O que é <b>programação linear</b>?</h1>
+					
+					<p>
+						A programação linear busca obter valores para n váriaveis de decisão, x1,x2,…,xn, de modo a otimizar (maximizar ou minimizar) uma expressão linear Z = c1*x1 + c2*x2+…+cn*xn, satisfazendo a um conjunto de restrições lineares na forma de igualdades ou desigualdades representadas matricialmente por Ax {<=, =, =>} b.
+					</p>
+
+					<h2>Como se faz o <b>Simplex?</b></h2>
+					
+					<p>
+						O algoritmo pode ser definido como contendo, grosso modo, três partes: 
+						<ul>
+							<li>Inicialização (o algoritmo prepara os dados de entrada)</li>
+								<li>Iteração (o algoritmo repete diversas vezes o procedimento e faz com que a otimização do modelo seja alcançada)</li>
+								<li>Regra de parada (o algoritmo avalia se a solução ótima foi obtida ou se é impossível obtê-la)</li>
+						</ul>
+					</p>
+
+					<h2>Passos do <b>Simplex</b></h2>
+
+					<p>
+						<ol>
+							<li>Achar uma solução compatível básica inicial</li>
+							<li>Verificar se a solução é ótima. Se for pare. Caso contrário, siga para o passo 3;</li>
+							<li>Determinar a variável não básica que deve entrar na base</li>
+							<li>Determinar a variável básica que deve sair da base;</li>
+							<li>Achar  a nova solução compatível básica e voltar ao passo 2</li>
+						</ol>
+					</p>
+					
+					<h2>Transformação de lados direitos negativos</h2>
+						<p>
+							Caso o lado direito da restrição seja negativo, ela pode ser multiplicada por -1, de modo que o parâmetro se torne positivo. 
+							Ex: 4x1 + 4x2 <= -4 = -4x1 -4x2 >= 4
+						</p>
+					</p>
+
 				</div>
 
 			</div>
