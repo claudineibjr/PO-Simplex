@@ -43,3 +43,21 @@ function showMatriz(matriz, bMatriz){
 
 	return texto;
 }
+
+function obterValorEntre(valor, marcadorInicial, marcadorFinal){
+	var resultado;
+
+	if (marcadorFinal == undefined)	marcadorFinal = -1;
+
+	if (valor.indexOf(marcadorInicial) > -1){
+		if (valor.indexOf(marcadorFinal) > -1){
+			resultado = valor.substr(valor.indexOf(marcadorInicial)+1, valor.indexOf(marcadorFinal) - valor.indexOf(marcadorInicial)-1)
+		}
+		else{
+			resultado = valor.substr(valor.indexOf(marcadorInicial)+1);
+		}
+	} else
+	resultado = "";
+	
+	return resultado;
+}

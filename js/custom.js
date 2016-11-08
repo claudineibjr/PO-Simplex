@@ -20,7 +20,7 @@ function calcSimplex(){
 	var funcaoObjetivoZ = transformaFuncao(funcaoMaxZ);
 
 	// Criação da tabela que será usada
-	var tabela = newMatriz(1, 2 + variaveis.length + variaveisFolgaExcesso.length + 1);
+	var tabela = newMatriz(1, 5);
 	preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, funcaoObjetivoZ);
 
 }
@@ -48,27 +48,27 @@ function preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, ma
 	for (var i = 0; i < restricoes.length + 1; i++ ){
 		var linha = i+1;
 		var base = (i == restricoes.length ? "Z" : "f" + (i+1));
-		var b = (i == restricoes.length ? 0 : restricoes[i][2]);
+		var b = (i == restricoes.length ? "<0>" : restricoes[i][2]);
 		var variavel = new Array();
 		var variavelFolgaExcesso = new Array();		
 		
 		for (var j = 0; j < variaveis.length; j++){
-			//variavel.push(preencheTabela_Aux(variaveis[j], restricoes[i][0]));
-			variavel.push((i == restricoes.length ? preencheTabela_Aux(variaveis[j], maxZ, true) : preencheTabela_Aux(variaveis[j], restricoes[i][0], false)));
+			variavel.push((i == restricoes.length ? preencheTabela_Aux(variaveis[j], maxZ) : preencheTabela_Aux(variaveis[j], restricoes[i][0], false)));
 		}
 		for (var j = 0; j < variaveisFolgaExcesso.length; j++){
-			//variavelFolgaExcesso.push(preencheTabela_Aux(variaveisFolgaExcesso[j], restricoes[i][0]));
-			variavelFolgaExcesso.push((i == restricoes.length ? preencheTabela_Aux(variaveisFolgaExcesso[j], maxZ, true) : preencheTabela_Aux(variaveisFolgaExcesso[j], restricoes[i][0], false)));
+			variavelFolgaExcesso.push((i == restricoes.length ? preencheTabela_Aux(variaveisFolgaExcesso[j], maxZ) : preencheTabela_Aux(variaveisFolgaExcesso[j], restricoes[i][0], false)));
 		}
-		alert("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + "\n" + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
+		//alert("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
+		tabela.push(linha, base, variavel, variavelFolgaExcesso, b);
+		console.log(showSimplexMatriz(tabela, true));
 	}
 }
-function preencheTabela_Aux(variavel, restricao, inverteSinal){
+function preencheTabela_Aux(variavel, restricao){
 	var iAux, resultado, iAux2;
 	iAux = 0;
 	iAux2 = 0;
 
-	resultado = 0;
+	resultado = "<0>";
 
 	for (var i = 0; i < restricao.length; i++){
 		if (restricao.substring(i, i+1) == "[")
@@ -80,30 +80,23 @@ function preencheTabela_Aux(variavel, restricao, inverteSinal){
 
 			if (varAux == variavel){
 				resultado = restricao.substring(iAux, iAux - i)
-				resultado = resultado.substring(resultado.lastIndexOf("<"));
-				resultado = resultado.replace("<", "");	resultado = resultado.replace(">", "");
+				resultado = resultado.substring(resultado.lastIndexOf("{"), resultado.lastIndexOf("}")+1) + " " + resultado.substring(resultado.lastIndexOf("<"));
 			}
 		}
-
 	}
+
 	return resultado;
-	//alert(variavel + "\n\n" + restricao);
 }
 function criaVariaveis(funcao){
-
-	var iAux;
-	iAux = 0;
-
 	var variaveis = new Array();
 
 	for (var i = 0; i < funcao.length; i++){
-		if (funcao.substring(i, i+1) == "[")
-			iAux = i;
+		var varAux = funcao.substring(i);
+		varAux = obterValorEntre(varAux, "[", "]");
 
-		if (funcao.substring(i, i+1) == "]"){
-			if (existeVariavel(variaveis, funcao.substring(iAux+1, i)) == false)
-				variaveis.push(funcao.substring(iAux+1, i));
-		}
+		if (varAux != "")
+			if (existeVariavel(variaveis, varAux) == false)
+				variaveis.push(varAux);
 	}
 
 	return variaveis;
@@ -121,34 +114,20 @@ function existeVariavel(variaveis, variavel){
 	return existe;
 }
 function transformaFuncao(funcao){
+	var funcaoAux;
+	funcaoAux = funcao;
 
-	var iAux, valor, funcaoAux;
-	funcaoAux = "";
-	iAux = 0;
-
-	for (var i = 0; i < funcao.length; i++){
-		if (funcao.substring(i, i+1) == "]"){
-			valor = funcao.substring(iAux, i+1);
-			
-			if (valor.substring(1, 2) == "+")
-				valor = " - " + valor.substring(3);
-			else	if(valor.substring(1, 2) == "-")
-						valor = " + " + valor.substring(3);
-
-			funcaoAux = "" + funcaoAux + "" + valor;
-
-			iAux = i+1;
-		}
-	}
+	for (var i = 0; i < funcao.length; i++)
+		funcaoAux = funcaoAux.replace("{+}", "{-}");
 
 	funcaoAux = funcaoAux + " = 0";
 	return funcaoAux;
 }
 function criaRestricoes(res){
 	// [TO DO]
-	res.push(["{+} <1>[x1]", "<=", 4]);
-	res.push(["{+} <1>[x2]", "<=", 6]);
-	res.push(["{+} <3>[x1] {+} <2>[x2]", "<=", 18]);
+	res.push(["{+} <1>[x1]", "<=", "{+} <4>"]);
+	res.push(["{+} <1>[x2]", "<=", "{+} <6>"]);
+	res.push(["{+} <3>[x1] {+} <2>[x2]", "<=", "{+} <18>"]);
 }
 function criaVariaveisFolgaExcesso(varFE, res){
 	for (var i = 0; i < res.length; i++)
@@ -161,4 +140,23 @@ function insereVariaveisFolga(res, varFE){
 		else
 			res[i][0] = res[i][0] + " {-} <1>[f" + (i+1) + "]";
 	}
+}
+
+function showMatriz(matriz){
+	var linhas, colunas;
+
+	linhas = matriz.length;
+	colunas = matriz[linhas-1].length;
+
+	var texto;
+	texto = "";
+
+	for (var i=0; i<linhas; i++){
+		for (var j=0; j<colunas; j++){
+			texto = texto + matriz[i][j] + (j+1 == colunas ? "" : "\t");
+		}
+		texto = texto + "\n";
+	}
+
+	return texto;
 }
