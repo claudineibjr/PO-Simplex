@@ -1,13 +1,16 @@
 function calcSimplex(){
 
 	// Definição da função que há de ser maximizada
-	var funcaoMaxZ = " {+} <3>[x1] {+} <5>[x2]";	// [TO DO]
+	var funcaoMaxZ = inputedFunction;
+
 	// Função responsável por identificar as variáveis
 	var variaveis = criaVariaveis(funcaoMaxZ);
 
 	// Criação e definição das restrições
 	var restricoes = newMatriz(1, 3);
 	criaRestricoes(restricoes);
+
+	console.log(showMatriz(restrictions, true))
 
 	// Criação e definição das variáveis de folga ou excesso
 	var variaveisFolgaExcesso = new Array();
@@ -60,7 +63,7 @@ function preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, ma
 		}
 		
 		tabela.push(linha, base, variavel, variavelFolgaExcesso, b);
-		console.log("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
+		//console.log("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
 	}
 }
 function preencheTabela_Aux(variavel, restricao){
@@ -159,4 +162,4 @@ function showMatriz(matriz){
 	}
 
 	return texto;
-}
+}	

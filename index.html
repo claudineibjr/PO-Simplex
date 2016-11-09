@@ -41,41 +41,40 @@
 
 				<div id="Div1">
 					<!-- Aba 1 Maximizar Z-->
-					<frame id="parametros">
-						<div class="panel panel-primary" id="parametros_Funcao">
-							<div class="panel-heading">Função Max Z</div>
-							<div class="panel-body">
+					<div class="panel panel-primary" id="parametros_Funcao">
+						<div class="panel-heading">Função Max Z</div>
+						<div class="panel-body">
 
-								<div class="row">
-									<div class="col-sm-5"><input type="number" class="form-control" id="number" placeholder="Valor"></div>
-									<div class="col-sm-5"><input type="text" class="form-control" id="variable" placeholder="Variável"></div>
-									<button type="button" class="btn btn-default" onclick="addValueToFunction()">Adicionar valor</button><br><br>
-								</div>
-
-								<input type="text" readonly class="form-control" id="function" placeholder="Função Max Z">
-
+							<div class="row">
+								<div class="col-sm-2"><input type="number" class="form-control" id="functionNumber" placeholder="Valor"></div>
+								<div class="col-sm-2"><input type="text" class="form-control" id="functionVariable" placeholder="Variável"></div>
+								<div class="col-sm-6"><input type="text" readonly class="form-control" id="function" placeholder="Função Max Z"></div>
+								<div class="col-sm-2"><button type="button" class="btn btn-default" onclick="addValueToFunction('function')">Adicionar valor</button></div>
 							</div>
+
 						</div>
+					</div>
 
-						<div class="panel panel-primary" id="parametros_Restricoes">
-							<div class="panel-heading">Restrições</div>
-							<div class="panel-body" id="restrictionsPanel">
+					<div class="panel panel-primary" id="parametros_Restricoes">
+						<div class="panel-heading">Restrições</div>
+						<div class="panel-body" id="restrictionsPanel">
 
-								<div class="row">
-									<div class="col-sm-3"><input type="number" class="form-control" id="number" placeholder="Valor"></div>
-									<div class="col-sm-3"><input type="text" class="form-control" id="variable" placeholder="Variável"></div>
-									<div class="col-sm-1"><select class="form-control">	<option><=</option>	<option>>=</option>	<option><</option>	<option>></option> <option>=</option>	</select></div>
-									<div class="col-sm-3"><input type="number" class="form-control" id="desigualdade" placeholder="Valor"></div>
-									<button type="button" class="btn btn-default" onclick="addValueToRestrictions()">Adicionar restrição</button><br><br>
-								</div>
-
-								<!-- Os inputs serão adicionados pelo próprio código
-								<input type="text" readonly class="form-control" id="function" placeholder="Função Max Z">	-->
-
+							<div class="row">
+								<div class="col-sm-2"><input type="number" class="form-control" id="restrictionNumber" placeholder="Valor"></div>
+								<div class="col-sm-2"><input type="text" class="form-control" id="restrictionVariable" placeholder="Variável"></div>
+								<div class="col-sm-3"><button type="button" class="btn btn-default" onclick="addValueToFunction('restriction')">Adicionar valor</button></div>
+								<div class="col-sm-1"><select class="form-control" id="restrictionSignal">	<option></option><option><=</option>	<option>>=</option>	<option><</option>	<option>></option> <option>=</option></select></div>
+								<div class="col-sm-2"><input type="number" class="form-control" id="restrictionNumberEqual" placeholder="Valor"></div>	
+								<div class="col-sm-2"><button type="button" class="btn btn-default" onclick="addRestriction()">Gravar restrição</button><br><br></div>
 							</div>
-						</div>
 
-					</frame>	
+							<!-- Os inputs serão adicionados pelo próprio código
+							<input type="text" readonly class="form-control" id="function" placeholder="Função Max Z">	-->
+
+						</div>
+					</div>
+
+					<button type="button" class="btn btn-default" onclick="calcSimplex()">Iniciar!</button>
 				</div>
 
 				<div id="Div2">
