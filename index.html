@@ -22,9 +22,10 @@
 
 			<ul class="nav navbar-nav">
 				<li id="Tab0"><a href="#" onclick="setTabActive('0')">Página Inicial</a></li>
-				<li id="Tab1"><a href="#" onclick="setTabActive('1')">Maximizar lucro</a></li>
-				<li id="Tab2"><a href="#" onclick="setTabActive('2')">Minimizar custos</a></li>
-				<li id="Tab3"><a href="#" onclick="setTabActive('3')">Sobre</a></li>
+				<li id="Tab1"><a href="#" onclick="setTabActive('1')">Parâmetros</a></li>
+				<li id="Tab2"><a href="#" onclick="setTabActive('2')">Maximizar lucro</a></li>
+				<li id="Tab3"><a href="#" onclick="setTabActive('3')">Minimizar custos</a></li>
+				<li id="Tab4"><a href="#" onclick="setTabActive('4')">Sobre</a></li>
 			</ul>
 
 		</div>
@@ -40,28 +41,52 @@
 
 				<div id="Div1">
 					<!-- Aba 1 Maximizar Z-->
-					
-					<div class="panel panel-primary" id="Parametros">
-						<div class="panel-heading" text="teste">Função Max Z</div>
-						<div class="panel-body">
+					<frame id="parametros">
+						<div class="panel panel-primary" id="parametros_Funcao">
+							<div class="panel-heading">Função Max Z</div>
+							<div class="panel-body">
 
-							<div class="row">
-								<div class="col-sm-5"><input type="number" class="form-control" id="number" placeholder="Valor"></div>
-								<div class="col-sm-5"><input type="text" class="form-control" id="number" placeholder="Variável"></div>
-								<button type="button" class="btn btn-default">Adicionar valor</button><br><br>
+								<div class="row">
+									<div class="col-sm-5"><input type="number" class="form-control" id="number" placeholder="Valor"></div>
+									<div class="col-sm-5"><input type="text" class="form-control" id="variable" placeholder="Variável"></div>
+									<button type="button" class="btn btn-default" onclick="addValueToFunction()">Adicionar valor</button><br><br>
+								</div>
+
+								<input type="text" readonly class="form-control" id="function" placeholder="Função Max Z">
+
 							</div>
-							<input type="text" readonly class="form-control" id="number" placeholder="Função Max Z">
-
 						</div>
-					</div>
 
+						<div class="panel panel-primary" id="parametros_Restricoes">
+							<div class="panel-heading">Restrições</div>
+							<div class="panel-body" id="restrictionsPanel">
+
+								<div class="row">
+									<div class="col-sm-3"><input type="number" class="form-control" id="number" placeholder="Valor"></div>
+									<div class="col-sm-3"><input type="text" class="form-control" id="variable" placeholder="Variável"></div>
+									<div class="col-sm-1"><select class="form-control">	<option><=</option>	<option>>=</option>	<option><</option>	<option>></option> <option>=</option>	</select></div>
+									<div class="col-sm-3"><input type="number" class="form-control" id="desigualdade" placeholder="Valor"></div>
+									<button type="button" class="btn btn-default" onclick="addValueToRestrictions()">Adicionar restrição</button><br><br>
+								</div>
+
+								<!-- Os inputs serão adicionados pelo próprio código
+								<input type="text" readonly class="form-control" id="function" placeholder="Função Max Z">	-->
+
+							</div>
+						</div>
+
+					</frame>	
 				</div>
 
 				<div id="Div2">
-					<!-- Aba 2 Minimizar Z -->
+					<!-- Aba 2 Maximizar Z-->
 				</div>
 
 				<div id="Div3">
+					<!-- Aba 3 Minimizar Z-->
+				</div>
+
+				<div id="Div4">
 					<!-- Aba 3 Sobre-->
 					<h1>O que é <b>programação linear</b>?</h1>
 					
