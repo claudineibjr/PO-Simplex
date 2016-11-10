@@ -1,5 +1,6 @@
 var inputedFunction = "", inputRestriction = "";
 var restrictions = newMatriz(1, 3);
+var debug = false;
 
 function onLoad(){
 	setTabActive(0);
@@ -50,4 +51,41 @@ function addInputRestriction(isNewInput, myFunction, number, variable){
 	newInput.setAttribute("placeholder", "Restrição " + (restrictions.length + 1));		
 	newInput.setAttribute("readonly", "");	
 	painel.appendChild(newInput);	
+}
+
+function createVisualTable(table){
+
+	var row, column;
+	row = table.length;
+	column = table[0].length - 2 + table[0][2].length + table[0][3].length ;
+
+	var divTable = document.createElement("div");	divTable.setAttribute("class", "table-responsive");	document.getElementById("bodyPanelTable").appendChild(divTable);
+
+
+	//var header = ["", "if", "then", "else", "=", "v", "id", "(", ")", "$", "S", "E"];	
+
+	for (row = 0; row < 17; row++){
+		var htmlRow = htmlTable.insertRow(row);
+
+		for (column = 0; column < 12; column++){
+			var cell = htmlRow.insertCell(column);
+			
+			//if (row == 0)
+				//cell.innerHTML = header[column];
+			//else {
+				if (column == 0)
+					cell.innerHTML = row-1;
+				else
+					cell.innerHTML = table[row-1][column-1];
+			//}
+		}
+
+	}	
+
+	htmlBody.appendChild(htmlTable);
+	htmlTable.setAttribute("border", "2");
+	htmlTable.setAttribute("id", "SintaxTable");
+
+	document.getElementById("SintaxTable").style.display = "none";
+
 }

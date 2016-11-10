@@ -1,16 +1,17 @@
 function calcSimplex(){
 
-	// Definição da função que há de ser maximizada
-	var funcaoMaxZ = inputedFunction;
+	// - Definição da função que há de ser maximizada
+	// - Criação e definição das restrições
+	if (debug == true){
+		var funcaoMaxZ = "{+} <3> [x1] {+} <5> [x2]";
+		var restricoes = criaRestricoes();
+	} else {
+		var funcaoMaxZ = inputedFunction;
+		var restricoes = restrictions;
+	}
 
 	// Função responsável por identificar as variáveis
 	var variaveis = criaVariaveis(funcaoMaxZ);
-
-	// Criação e definição das restrições
-	var restricoes = newMatriz(1, 3);
-	criaRestricoes(restricoes);
-
-	console.log(showMatriz(restrictions, true))
 
 	// Criação e definição das variáveis de folga ou excesso
 	var variaveisFolgaExcesso = new Array();
@@ -26,6 +27,10 @@ function calcSimplex(){
 	var tabela = newMatriz(1, 5);
 	preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, funcaoObjetivoZ);
 
+	console.log(showMatriz(tabela, true));
+
+	createVisualTable(tabela);
+	
 }
 function preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, maxZ){
 	/*	
@@ -62,7 +67,7 @@ function preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, ma
 			variavelFolgaExcesso.push((i == restricoes.length ? preencheTabela_Aux(variaveisFolgaExcesso[j], maxZ) : preencheTabela_Aux(variaveisFolgaExcesso[j], restricoes[i][0], false)));
 		}
 		
-		tabela.push(linha, base, variavel, variavelFolgaExcesso, b);
+		tabela.push([linha, base, variavel, variavelFolgaExcesso, b]);
 		//console.log("Linha: " + linha + "\nBase: " + base + "\n" + showMatriz(variavel, false) + showMatriz(variavelFolgaExcesso, false) + "B: " + b);
 	}
 }
@@ -126,11 +131,13 @@ function transformaFuncao(funcao){
 	funcaoAux = funcaoAux + " = 0";
 	return funcaoAux;
 }
-function criaRestricoes(res){
+function criaRestricoes(){
 	// [TO DO]
+	var res = newMatriz(1, 3);
 	res.push(["{+} <1>[x1]", "<=", "{+} <4>"]);
 	res.push(["{+} <1>[x2]", "<=", "{+} <6>"]);
 	res.push(["{+} <3>[x1] {+} <2>[x2]", "<=", "{+} <18>"]);
+	return res;
 }
 function criaVariaveisFolgaExcesso(varFE, res){
 	for (var i = 0; i < res.length; i++)
