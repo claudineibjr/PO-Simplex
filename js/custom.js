@@ -27,8 +27,6 @@ function calcSimplex(){
 	var tabela = newMatriz(1, 5);
 	preencheTabela(tabela, restricoes, variaveis, variaveisFolgaExcesso, funcaoObjetivoZ);
 
-	console.log(showMatriz(tabela, true));
-
 	createVisualTable(tabela);
 	
 }

@@ -1,9 +1,18 @@
 var inputedFunction = "", inputRestriction = "";
 var restrictions = newMatriz(1, 3);
-var debug = false;
+var debug = true;
 
 function onLoad(){
 	setTabActive(0);
+
+	//var teste;
+	//teste = "1";
+	//teste = "f1";
+	//teste = "{+} <1>,<0>"
+	//teste = "{+} <1>,<0>,<0>";
+	//teste = "{+} <4>";
+	//alert(replaceValues(teste, ["{", "}", "<", ">", "[", "]", " "], ""));
+
 }
 
 function setTabActive(IdTab){
@@ -53,39 +62,70 @@ function addInputRestriction(isNewInput, myFunction, number, variable){
 	painel.appendChild(newInput);	
 }
 
-function createVisualTable(table){
+function createVisualTable(table, titleTable){
 
-	var row, column;
-	row = table.length;
-	column = table[0].length - 2 + table[0][2].length + table[0][3].length ;
+	var divPai = document.getElementById("Div1");
 
-	var divTable = document.createElement("div");	divTable.setAttribute("class", "table-responsive");	document.getElementById("bodyPanelTable").appendChild(divTable);
+	// Criação dos divs panel-primary, panel-Heading e panel-body
+	var divPanelPrimary = document.createElement("div");	divPanelPrimary.setAttribute("class", "panel panel-primary");	divPanelPrimary.setAttribute("id", getLastElement("panelPrimary_"));
+	var divPanelHeading = document.createElement("div");	divPanelHeading.setAttribute("class", "panel-heading");			divPanelHeading.setAttribute("id", getLastElement("panelHeading_"));	divPanelHeading.innerHTML = (titleTable == undefined ? getLastElement("Iteracao_").replace("ca","cã").replace("_", " ") : titleTable);
+	var divPanelBody = document.createElement("div");		divPanelBody.setAttribute("class", "panel-body");				divPanelBody.setAttribute("id", getLastElement("panelBody"));
 
+	divPai.appendChild(divPanelPrimary);
+	divPanelPrimary.appendChild(divPanelHeading);
+	divPanelPrimary.appendChild(divPanelBody);
 
-	//var header = ["", "if", "then", "else", "=", "v", "id", "(", ")", "$", "S", "E"];	
+	var numberRows, numbersColumn;
+	numberRows = table.length;
+	numbersColumn = table[0].length - 2 + table[0][2].length + table[0][3].length;
 
-	for (row = 0; row < 17; row++){
+	var divTable = document.createElement("div");	divTable.setAttribute("class", "table-responsive");	divPanelBody.appendChild(divTable);
+	var htmlTable = document.createElement("table");	htmlTable.setAttribute("class", "table");	htmlTable.setAttribute("id", getLastElement("Iteracao_"));	divTable.appendChild(htmlTable);
+
+	for (var row = 0; row < numberRows; row++){
 		var htmlRow = htmlTable.insertRow(row);
 
-		for (column = 0; column < 12; column++){
-			var cell = htmlRow.insertCell(column);
-			
-			//if (row == 0)
-				//cell.innerHTML = header[column];
-			//else {
-				if (column == 0)
-					cell.innerHTML = row-1;
+		var depth = 0;
+		var realColumn = 0;
+
+		for (var column = 0; column < numbersColumn; column++){
+			var htmlCell = htmlRow.insertCell(realColumn);
+
+			var cellValue;
+
+			if (column == 2 || column == 3){
+				cellValue = String(table[row][column][depth]);
+				if (table[row][column].length > depth){
+					column--;
+					depth++;
+				}
 				else
-					cell.innerHTML = table[row-1][column-1];
-			//}
+					depth = 0;	
+			}
+			else
+				cellValue = String(table[row][column]);
+
+			cellValue = replaceValues(cellValue, ["{", "}", "<", ">", "[", "]", " "], "");
+
+			if (cellValue == "undefined")
+				alert("Valor: " + cellValue + "\nLinha: " + row + "\nColuna: " + realColumn + "\nProfundidade: " + depth);
+			htmlCell.innerHTML = cellValue;
+
+//			alert("Valor: " + cellValue + "\nLinha: " + row + "\nColuna: " + column + "\nProfundidade: " + depth);
+
+			realColumn++;
 		}
+	}
+}
 
-	}	
+function getLastElement(element){
+	var iCount;
+	iCount = 0;
 
-	htmlBody.appendChild(htmlTable);
-	htmlTable.setAttribute("border", "2");
-	htmlTable.setAttribute("id", "SintaxTable");
+	while(true){
+		iCount++;
 
-	document.getElementById("SintaxTable").style.display = "none";
-
+		if (document.getElementById(element + iCount) == null)
+			return element + "" + iCount;
+	}
 }

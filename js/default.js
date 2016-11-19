@@ -61,3 +61,21 @@ function obterValorEntre(valor, marcadorInicial, marcadorFinal){
 	
 	return resultado;
 }
+
+function replaceValues(value, valueSubstituted, valueToSubstitute){
+	var valueAux;
+	valueAux = "";
+
+	for (var i = 0; i < valueSubstituted.length; i++){
+		value = (valueAux == "" ? value : valueAux);
+		valueAux = "";
+
+		for (var j = 0; j < value.length; j++){
+			if (value.substr(j, valueSubstituted[i].length) != valueSubstituted[i]){
+				valueAux = valueAux + value.substr(j, valueSubstituted[i].length);
+			}
+		}
+	}
+
+	return valueAux;
+}
