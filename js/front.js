@@ -1,6 +1,5 @@
 var inputedFunction = "", inputRestriction = "";
 var restrictions = newMatriz(1, 3);
-var debug = true;
 
 function onLoad(){
 	setTabActive(0);
@@ -26,19 +25,32 @@ function setTabActive(IdTab){
 }
 
 function addValueToFunction(typeValue){
-	var number = (typeValue == "function" ? document.getElementById("functionNumber").value : document.getElementById("restrictionNumber").value);
+	(typeValue == "function" ? document.getElementById("functionNumber").value = (document.getElementById("functionNumber").value == "" ? "1" : document.getElementById("functionNumber").value) : null);
+	(typeValue == "restriction" ? document.getElementById("restrictionNumber").value = (document.getElementById("restrictionNumber").value == "" ? "1" : document.getElementById("restrictionNumber").value) : null);
+
+	var number = (typeValue == "function" ? (document.getElementById("functionNumber").value) : document.getElementById("restrictionNumber").value);
 	var variable = (typeValue == "function" ? document.getElementById("functionVariable").value : document.getElementById("restrictionVariable").value);
 	var myFunction = (typeValue == "function" ? document.getElementById("function").value : (document.getElementById("restriction" + restrictions.length) == null ? "" : document.getElementById("restriction" + restrictions.length).value));
 
 	if (typeValue == "function"){
 		inputedFunction = inputedFunction + (number.indexOf("-") > -1 ? "{-}" : "{+}" ) + " " + "<" + (number.indexOf("-") > -1 ? number * -1 : number ) + ">" + " " + "[" + variable + "]" + " ";
 		document.getElementById("function").value = myFunction + (myFunction.length == 0 ? "" : (number.indexOf("-") > -1 ? "" : "+")) + number + variable + " ";
+
+		document.getElementById("functionNumber").value = "";
+		document.getElementById("functionVariable").value = "";
+		document.getElementById("functionNumber").focus();
+
 	} else{
 		if (document.getElementById("restriction" + restrictions.length) == null){
 			addInputRestriction(false, myFunction, number, variable);
 		}
 		inputRestriction = inputRestriction + (number.indexOf("-") > -1 ? "{-}" : "{+}" ) + " " + "<" + (number.indexOf("-") > -1 ? number * -1 : number ) + ">" + " " + "[" + variable + "]" + " ";
 		document.getElementById("restriction" + restrictions.length).value = myFunction + (myFunction.length == 0 ? "" : (number.indexOf("-") > -1 ? "" : "+")) + number + variable + " ";
+		
+		document.getElementById("restrictionNumber").value = "";
+		document.getElementById("restrictionVariable").value = "";
+		document.getElementById("restrictionNumber").focus();
+
 	}
 }
 
@@ -60,6 +72,13 @@ function addInputRestriction(isNewInput, myFunction, number, variable){
 	newInput.setAttribute("placeholder", "Restrição " + (restrictions.length + 1));		
 	newInput.setAttribute("readonly", "");	
 	painel.appendChild(newInput);	
+
+	document.getElementById("restrictionNumber").value = "";
+	document.getElementById("restrictionVariable").value = "";
+	document.getElementById("restrictionSignal").value = "";
+	document.getElementById("restrictionNumberEqual").value = "";	
+	document.getElementById("restrictionNumber").focus();
+
 }
 
 function createVisualTable(table, headerTable, titleTable){

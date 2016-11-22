@@ -5,13 +5,8 @@ function calcSimplex(){
 
 	// - Definição da função que há de ser maximizada
 	// - Criação e definição das restrições
-	if (debug == true){
-		var funcaoMaxZ = "{+} <3> [x1] {+} <5> [x2]";
-		var restricoes = criaRestricoes();
-	} else {
-		var funcaoMaxZ = inputedFunction;
-		var restricoes = restrictions;
-	}
+	var funcaoMaxZ = inputedFunction;
+	var restricoes = restrictions;
 
 	// Função responsável por identificar as variáveis
 	var variaveis = criaVariaveis(funcaoMaxZ);
@@ -61,27 +56,27 @@ function calcSimplex(){
 
 		// Define o pivô para transformar a coluna da nova base em um vetor identidade
 		if (novaBase - variaveis.length >= -1 )
-			var pivo = tabela[antigaBase][COLUNA_VARIAVEIS][novaBase-COLUNA_VARIAVEIS];
+			var pivo = parseFloat(tabela[antigaBase][COLUNA_VARIAVEIS][novaBase-COLUNA_VARIAVEIS]);
 		else
-			var pivo = tabela[antigaBase][COLUNA_FOLGAEXCESSO][novaBase-COLUNA_FOLGAEXCESSO];
+			var pivo = parseFloat(tabela[antigaBase][COLUNA_FOLGAEXCESSO][novaBase-COLUNA_FOLGAEXCESSO]);
 
 		// Anulação dos outros elementos da coluna da base que entrou
 		for (var i = 1; i < tabela[0].length; i++){
 			if (typeof tabela[antigaBase][i] == "object")
 				for (var j = 0; j < tabela[antigaBase][i].length; j++ ){
-					var tempValor = tabela[antigaBase][i][j];
-					tabela[antigaBase][i][j] = tempValor/pivo;
+					var tempValor = parseFloat(tabela[antigaBase][i][j]);
+					tabela[antigaBase][i][j] = parseFloat(tempValor/pivo);
 				}
 			else{
-				var tempValor = tabela[antigaBase][i];
-				tabela[antigaBase][i] = tempValor/pivo;
+				var tempValor = parseFloat(tabela[antigaBase][i]);
+				tabela[antigaBase][i] = parseFloat(tempValor/pivo);
 			}
 		}
 
 		// Deixar nulo os outros elementos da linha
 		for (var i = 0; i < tabela.length; i++){
 			if (i != antigaBase){
-				var valorAZerar = (typeof tabela[i][novaBase] == "object" ? (novaBase - variaveis.length >= -1 ? tabela[i][COLUNA_VARIAVEIS][novaBase-COLUNA_VARIAVEIS] : tabela[i][COLUNA_FOLGAEXCESSO][novaBase-COLUNA_FOLGAEXCESSO]) : tabela[i][novaBase] );
+				var valorAZerar = parseFloat((typeof tabela[i][novaBase] == "object" ? (novaBase - variaveis.length >= -1 ? tabela[i][COLUNA_VARIAVEIS][novaBase-COLUNA_VARIAVEIS] : tabela[i][COLUNA_FOLGAEXCESSO][novaBase-COLUNA_FOLGAEXCESSO]) : tabela[i][novaBase] ));
 				if (valorAZerar != 0){
 					for (var j = 1; j < tabela[i].length; j++ ){
 						if (typeof tabela[i][j] == "object")
@@ -322,14 +317,6 @@ function transformaFuncao(funcao){
 
 	funcaoAux = funcaoAux + " = 0";
 	return funcaoAux;
-}
-function criaRestricoes(){
-	// [TO DO]
-	var res = newMatriz(1, 3);
-	res.push(["{+} <1>[x1]", "<=", "{+} <4>"]);
-	res.push(["{+} <1>[x2]", "<=", "{+} <6>"]);
-	res.push(["{+} <3>[x1] {+} <2>[x2]", "<=", "{+} <18>"]);
-	return res;
 }
 function criaVariaveisFolgaExcesso(varFE, res){
 	for (var i = 0; i < res.length; i++)
