@@ -62,7 +62,7 @@ function addInputRestriction(isNewInput, myFunction, number, variable){
 	painel.appendChild(newInput);	
 }
 
-function createVisualTable(table, titleTable){
+function createVisualTable(table, headerTable, titleTable){
 
 	var divPai = document.getElementById("Div1");
 
@@ -77,47 +77,54 @@ function createVisualTable(table, titleTable){
 
 	var numberRows, numbersColumn;
 	numberRows = table.length;
-	numbersColumn = table[0].length - 2 + table[0][2].length + table[0][3].length;
+	numbersColumn = table[0].length;// - 2 + table[0][2].length + table[0][3].length;
 
 	var divTable = document.createElement("div");	divTable.setAttribute("class", "table-responsive");	divPanelBody.appendChild(divTable);
 	var htmlTable = document.createElement("table");	htmlTable.setAttribute("class", "table");	htmlTable.setAttribute("id", getLastElement("Iteracao_"));	divTable.appendChild(htmlTable);
 
-	for (var row = 0; row < numberRows; row++){
-		var htmlRow = htmlTable.insertRow(row);
+	var htmlRow = htmlTable.insertRow(0);
+	for (var header = 0; header < headerTable.length; header++){
+		var htmlCell = htmlRow.insertCell(header);
+		htmlCell.innerHTML = headerTable[header];
+	}
 
-		var depth = 0;
-		var realColumn = 0;
+	for (var row = 0; row < numberRows; row++){
+		var htmlRow = htmlTable.insertRow(row+1);
+
+		var depth = 0, realColumn = 0;
 
 		for (var column = 0; column < numbersColumn; column++){
-			var htmlCell = htmlRow.insertCell(realColumn);
+			if (typeof table[row][column] == "object" ){
+				for (depth = 0; depth < table[row][column].length; depth++ ){
+					var htmlCell = htmlRow.insertCell(realColumn);
+					var cellValue;
 
-			var cellValue;
-
-			if (column == 2 || column == 3){
-				cellValue = String(table[row][column][depth]);
-				if (table[row][column].length > depth){
-					column--;
-					depth++;
+					cellValue = replaceValues(String(table[row][column][depth]), ["{", "}", "<", ">", "[", "]", " "], "");
+					htmlCell.innerHTML = cellValue;
+					realColumn++;
 				}
-				else
-					depth = 0;	
+			}else{
+				var htmlCell = htmlRow.insertCell(realColumn);
+				var cellValue;
+
+				cellValue = replaceValues(String(table[row][column]), ["{", "}", "<", ">", "[", "]", " "], "");
+				htmlCell.innerHTML = cellValue;
+				realColumn++;
 			}
-			else
-				cellValue = String(table[row][column]);
-
-			cellValue = replaceValues(cellValue, ["{", "}", "<", ">", "[", "]", " "], "");
-
-			if (cellValue == "undefined")
-				alert("Valor: " + cellValue + "\nLinha: " + row + "\nColuna: " + realColumn + "\nProfundidade: " + depth);
-			htmlCell.innerHTML = cellValue;
-
-//			alert("Valor: " + cellValue + "\nLinha: " + row + "\nColuna: " + column + "\nProfundidade: " + depth);
-
-			realColumn++;
 		}
 	}
 }
+function createDivWell(tabela){
+	var divPai = document.getElementById("Div1");
+	var divWell = document.createElement("div");	divWell.setAttribute("class", "well");	divPai.appendChild(divWell);
 
+	var texto = "";
+	for (var i = 0; i < tabela.length; i++){
+		texto = texto + tabela[i][0] + " = " + tabela[i][tabela[i].length-1] + ", ";
+	}
+
+	divWell.innerHTML = "Resultado Final: " + texto.substr(0, texto.length-2);
+}
 function getLastElement(element){
 	var iCount;
 	iCount = 0;
