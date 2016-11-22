@@ -1,7 +1,12 @@
 const COLUNA_VARIAVEIS = 1;
 const COLUNA_FOLGAEXCESSO = 2;
 
-function calcSimplex(){
+function calcSimplex(tipo){
+
+	/*Tipo:
+		1 - Max Z
+		2 - Min Z
+	*/
 
 	// - Definição da função que há de ser maximizada
 	// - Criação e definição das restrições

@@ -55,10 +55,12 @@ function addValueToFunction(typeValue){
 }
 
 function addRestriction(){
-	document.getElementById("restriction" + restrictions.length).value = document.getElementById("restriction" + restrictions.length).value + document.getElementById("restrictionSignal").value + " " + document.getElementById("restrictionNumberEqual").value;
-	restrictions.push([inputRestriction, document.getElementById("restrictionSignal").value, (document.getElementById("restrictionNumberEqual").value.indexOf("-") > -1 ? "{-}" : "{+}" ) + document.getElementById("restrictionNumberEqual").value]);
-	addInputRestriction(true);
-	inputRestriction = "";
+	if (document.getElementById("restriction" + restrictions.length).value != ""){	
+		document.getElementById("restriction" + restrictions.length).value = document.getElementById("restriction" + restrictions.length).value + document.getElementById("restrictionSignal").value + " " + document.getElementById("restrictionNumberEqual").value;
+		restrictions.push([inputRestriction, document.getElementById("restrictionSignal").value, (document.getElementById("restrictionNumberEqual").value.indexOf("-") > -1 ? "{-}" : "{+}" ) + document.getElementById("restrictionNumberEqual").value]);
+		addInputRestriction(true);
+		inputRestriction = "";
+	}
 }
 
 function addInputRestriction(isNewInput, myFunction, number, variable){
@@ -119,7 +121,7 @@ function createVisualTable(table, headerTable, titleTable){
 					var cellValue;
 
 					cellValue = replaceValues(String(table[row][column][depth]), ["{", "}", "<", ">", "[", "]", " "], "");
-					htmlCell.innerHTML = cellValue;
+					htmlCell.innerHTML = truncNum(cellValue, 4);
 					realColumn++;
 				}
 			}else{
@@ -127,7 +129,7 @@ function createVisualTable(table, headerTable, titleTable){
 				var cellValue;
 
 				cellValue = replaceValues(String(table[row][column]), ["{", "}", "<", ">", "[", "]", " "], "");
-				htmlCell.innerHTML = cellValue;
+				htmlCell.innerHTML = truncNum(cellValue, 4);
 				realColumn++;
 			}
 		}
