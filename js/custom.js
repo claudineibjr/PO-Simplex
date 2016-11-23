@@ -24,7 +24,7 @@ function calcSimplex(tipo){
 	insereVariaveisFolga(restricoes, variaveisFolgaExcesso);	
 
 	// Transformação da função em função objetivo
-	var funcaoObjetivoZ = transformaFuncao(funcaoMaxZ);
+	var funcaoObjetivoZ = transformaFuncao(funcaoMaxZ, tipo);
 
 	// Criação da tabela e do cabeçalho da tabela que será usada
 	var tabela = newMatriz(1, 2 + variaveis.length + variaveisFolgaExcesso.length), cabecalho = new Array();
@@ -34,7 +34,7 @@ function calcSimplex(tipo){
 	ajustaTabela(tabela);
 
 	// Exibe a tabela criada visualmente
-	createVisualTable(tabela, cabecalho);
+	createVisualTable(tabela, cabecalho, tipo);
 
 	/* Iterações
 		 - Condição de parada: Quando nenhum valor da base Z for negativo
@@ -96,26 +96,28 @@ function calcSimplex(tipo){
 
 
 		// Exibe a tabela criada visualmente
-		createVisualTable(tabela, cabecalho);		
+		createVisualTable(tabela, cabecalho, tipo);
 	}
 
-	createDivWell(tabela);
+	createDivWell(tabela, tipo);
 	
 }
 function ajustaTabela(tabela){
 	for (var linha = 0; linha < tabela.length; linha++){
 		for (var coluna = 0; coluna < tabela[linha].length; coluna++){
 			if (typeof tabela[linha][coluna] == "object")
-				for (var profundidade = 0; profundidade < tabela[linha][coluna].length; profundidade++ )
+				for (var profundidade = 0; profundidade < tabela[linha][coluna].length; profundidade++ ){
 					tabela[linha][coluna][profundidade] = replaceValues(tabela[linha][coluna][profundidade], ["{", "}", "<", ">", "[", "]", " ", "+"], "");
-			else
+				}
+			else{
 				tabela[linha][coluna] = replaceValues(tabela[linha][coluna], ["{", "}", "<", ">", "[", "]", " ", "+"], "");
+			}
 		}
 	}
 }
 function menorPositivoDivisao(tabela, novaBase, cabecalho, aPartirDe, variaveisAdicionais, variaveisFolgaExcessoAdicionais){
 	var menor = 1000000, oMenor;
-	var valorB, valorBase, colunaReal = 0;
+	var valorB = 0, valorBase = 0, colunaReal = 0;
 
 	var colunaObjetivo = 1 + variaveisAdicionais + variaveisFolgaExcessoAdicionais;
 
@@ -129,10 +131,10 @@ function menorPositivoDivisao(tabela, novaBase, cabecalho, aPartirDe, variaveisA
 	for (var coluna = 0; coluna <= colunaReal; coluna++){
 		if (coluna == colunaObjetivo){
 			for (var linha = 0; linha < tabela.length-1; linha++){
-				valorB = parseFloat(String(tabela[linha][coluna - 3]));
-				valorBase = parseFloat(String(colunaBase[linha]));
+				valorB = tabela[linha][coluna - 3];
+				valorBase = colunaBase[linha];
 
-				//alert("Valor B: " + valorB + "\n\nValorBase: " + valorBase);
+				//alert("Valor B: " + valorB + "\n\nValorBase: " + valorBase + "\n\n\n\n" + (valorB / valorBase) );
 
 				if (valorBase > 0){
 					var divisao = valorB / valorBase;
@@ -171,11 +173,11 @@ function criaColunaBase(tabela, colunaBase, variaveisAdicionais, variaveisFolgaE
 				for (var linha = 0; linha < tabela.length; linha++){
 					for (var prof = 0; prof < tabela[linha][colunaBase_aux].length; prof++)
 						if (prof == profundidadeBase)
-							coluna.push(tabela[linha][colunaBase_aux][prof]);
+							coluna.push(parseFloat(tabela[linha][colunaBase_aux][prof]));
 				}
 			}else{
 				for (var linha = 0; linha < tabela.length; linha++){
-					coluna.push(tabela[linha][colunaBase_aux]);
+					coluna.push(parseFloat(tabela[linha][colunaBase_aux]));
 				}
 			}
 		}
@@ -313,12 +315,15 @@ function existeVariavel(variaveis, variavel){
 	}
 	return existe;
 }
-function transformaFuncao(funcao){
+function transformaFuncao(funcao, tipo){
 	var funcaoAux;
 	funcaoAux = funcao;
 
-	for (var i = 0; i < funcao.length; i++)
-		funcaoAux = funcaoAux.replace("{+}", "{-}");
+	for (var i = 0; i < funcao.length; i++){
+		if (tipo == 1){
+			funcaoAux = funcaoAux.replace("{+}", "{-}");
+		}
+	}
 
 	funcaoAux = funcaoAux + " = 0";
 	return funcaoAux;

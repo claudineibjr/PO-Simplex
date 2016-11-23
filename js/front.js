@@ -50,7 +50,6 @@ function addValueToFunction(typeValue){
 		document.getElementById("restrictionNumber").value = "";
 		document.getElementById("restrictionVariable").value = "";
 		document.getElementById("restrictionNumber").focus();
-
 	}
 }
 
@@ -83,9 +82,9 @@ function addInputRestriction(isNewInput, myFunction, number, variable){
 
 }
 
-function createVisualTable(table, headerTable, titleTable){
+function createVisualTable(table, headerTable, placeTable, titleTable){
 
-	var divPai = document.getElementById("Div1");
+	var divPai = document.getElementById("Div" + (placeTable + 1));
 
 	// Criação dos divs panel-primary, panel-Heading e panel-body
 	var divPanelPrimary = document.createElement("div");	divPanelPrimary.setAttribute("class", "panel panel-primary");	divPanelPrimary.setAttribute("id", getLastElement("panelPrimary_"));
@@ -121,7 +120,7 @@ function createVisualTable(table, headerTable, titleTable){
 					var cellValue;
 
 					cellValue = replaceValues(String(table[row][column][depth]), ["{", "}", "<", ">", "[", "]", " "], "");
-					htmlCell.innerHTML = truncNum(cellValue, 4);
+					htmlCell.innerHTML = truncNum(cellValue, 6);
 					realColumn++;
 				}
 			}else{
@@ -129,19 +128,20 @@ function createVisualTable(table, headerTable, titleTable){
 				var cellValue;
 
 				cellValue = replaceValues(String(table[row][column]), ["{", "}", "<", ">", "[", "]", " "], "");
-				htmlCell.innerHTML = truncNum(cellValue, 4);
+				htmlCell.innerHTML = truncNum(cellValue, 6);
 				realColumn++;
 			}
 		}
 	}
 }
-function createDivWell(tabela){
-	var divPai = document.getElementById("Div1");
+function createDivWell(tabela, placeInfo){
+	var divPai = document.getElementById("Div" + (placeInfo + 1));
 	var divWell = document.createElement("div");	divWell.setAttribute("class", "well");	divPai.appendChild(divWell);
 
 	var texto = "";
 	for (var i = 0; i < tabela.length; i++){
-		texto = texto + tabela[i][0] + " = " + tabela[i][tabela[i].length-1] + ", ";
+		texto = texto + tabela[i][0] + " = " + 
+			(placeInfo == 2 && tabela[i][0] == "Z" ? (String(tabela[i][tabela[i].length-1]).indexOf("-") == -1 ? "-" + tabela[i][tabela[i].length-1] : String(tabela[i][tabela[i].length-1]).replace("-", "")) : tabela[i][tabela[i].length-1]) + ", ";
 	}
 
 	divWell.innerHTML = "Resultado Final: " + texto.substr(0, texto.length-2);
