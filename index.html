@@ -11,7 +11,7 @@
 		<div class="container-fluid">
 
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#" onclick="setTabActive('0')">Saba's Linear</a>
+				<a class="navbar-brand" href="#" onclick="setTabActive('0')">Simplex</a>
 			</div>
 
 			<ul class="nav navbar-nav">
@@ -62,7 +62,6 @@
 				</div>
 
 				<div id="Div1">
-<<<<<<< HEAD
 					<!-- Aba 1 Maximizar Z-->
 
 					<div class="row">
@@ -73,18 +72,6 @@
 										Panel Content
 									</div>
 								</div>
-=======
-					<!-- Aba 1 Parâmetros-->
-					<div class="panel panel-primary" id="parametros_Funcao">
-						<div class="panel-heading">Função Max/Min Z</div>
-						<div class="panel-body">
-
-							<div class="row">
-								<div class="col-sm-2"><input type="number" class="form-control" id="functionNumber" placeholder="Valor"></div>
-								<div class="col-sm-2"><input type="text" class="form-control" id="functionVariable" placeholder="Variável"></div>
-								<div class="col-sm-6"><input type="text" readonly class="form-control" id="function" placeholder="Função Max Z"></div>
-								<div class="col-sm-2"><button type="button" class="btn btn-default" onclick="addValueToFunction('function')">Adicionar valor</button></div>
->>>>>>> db88e88... Ajustes e adaptações
 							</div>
 						</div>
 
@@ -98,7 +85,6 @@
 							</div>							
 						</div>
 					</div>
-<<<<<<< HEAD
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="panel-group">
@@ -107,32 +93,6 @@
 										Panel Content
 									</div>
 								</div>
-=======
-
-					<div class="panel panel-primary" id="parametros_Restricoes">
-						<div class="panel-heading">Restrições</div>
-						<div class="panel-body" id="restrictionsPanel">
-
-							<div class="row">
-								
-								<div class="col-sm-2"><input type="number" class="form-control" id="restrictionNumber" placeholder="Valor"></div>
-								
-								<div class="col-sm-2"><input type="text" class="form-control" id="restrictionVariable" placeholder="Variável"></div>
-								
-								<div class="col-sm-3"><button type="button" class="btn btn-default" onclick="addValueToFunction('restriction')">Adicionar valor</button></div>
-
-								<div class="col-sm-1"><select class="form-control" id="restrictionSignal">	<option></option><option><=</option>	<option>>=</option>	<option><</option>	<option>></option> <option>=</option></select></div>
-								
-								<div class="col-sm-2"><input type="number" class="form-control" id="restrictionNumberEqual" placeholder="Valor"></div>									
-								
-								<div class="col-sm-2"><button type="button" class="btn btn-default" onclick="addRestriction()">Gravar restrição</button><br><br></div>
-
-								<div class="col-sm-6">
-									<label class="checkbox-inline"><input type="checkbox" value="" id="negativeVariables">Não negatividade das variáveis</label>
-									<label class="checkbox-inline"><input type="checkbox" value="" id="negativeAuxVariables">Não negatividade das variáveis de folga e excesso</label><br><br>
-								</div>			
-
->>>>>>> db88e88... Ajustes e adaptações
 							</div>
 						</div>
 
@@ -152,84 +112,7 @@
 					<!-- Aba 2 Minimizar Z -->
 				</div>
 				<div id="Div3">
-<<<<<<< HEAD
 					<!-- Aba 3 Sobre-->
-=======
-					<!-- Aba 3 Minimizar Z-->
-				</div>
-
-				<div id="Div4">
-					<!-- Aba 4 Sobre-->
-					<h2>Como usar o <b>Saba's Linear</b>?</h2>
-					<p>
-						Primeiramente, acesse a aba <b>Parâmetros</b>. 
-						<br>Estando nesta aba, você verá dois painéis para que você possa informar os dados de entrada para o cálculo do Simplex:
-							<ul>
-								<li>Função Max/Min Z</li>
-								<li>Restrições</li>
-							</ul>
-					</p>
-					<br><h3>Função Max/Min Z</h3>
-					<p>
-						Neste painel, você deverá informar os dados de entrada da função que você deseja maximizar o <b>lucro</b> ou <b>minimizar o custo.</b>
-						<br>Você deverá informar o valor e a variável e clicar no botão <b>Adicionar Valor</b>.
-						<br><br><h4>Exemplo</h4>
-						<p>
-							Função objetivo: <b>3*x1 + 5*x2</b><br>
-							<ul>
-								<li>Informe o valor <b>3</b> no campo <b>valor</b></li>
-								<li>Informe o valor <b>x1</b> no campo <b>variável</b></li>
-								<li>Clique em <b>Adicionar Valor</b></li>
-								<li>Informe o valor <b>5</b> no campo <b>valor</b></li>
-								<li>Informe o valor <b>x2</b> no campo <b>variável</b></li>
-							</ul>
-						</p>
-					</p>
-					<br><h3>Restrições</h3>
-					<p>
-						Neste painel, você deverá informar as restrições de entrada para o cálculo do Simplex.
-						<br>Você deverá informar o <b>valor</b>, a <b>variável</b> e clicar em <b>Adicionar Valor</b>, e então após finalizar a digitação, selecione o <b>tipo de desigualdade</b> (podendo escolher entre <=, <, > ou >=) e depois disso informe o <b>valor</b> que deverá ser desigual e então clique em <b>Gravar restrição</b>
-						<br><br><h4>Exemplo</h4>
-						<p>
-							<b>Restrições</b>:<br>
-								x1 <= 4;<br>
-								x2 <= 6;<br>
-								3x1 + 2x2 <= 18;<br>
-								x1, x2 >= 0;<br>
-							<ul>
-								<li>Informe o <b>1</b> no campo <b>Valor</b> (como é 1, é opcional informar)</li>
-								<li>Informe o <b>x1</b> no campo <b>Variável</b></li>
-								<li>Clique em <b>Adicionar Valor</b></li>
-								<li>Selecione o <b>tipo de desigualdade <=</b></li>
-								<li>Informe <b>4</b> no segundo campo <b>valor</b></li>
-								<li>Clique em <b>Gravar Restrição</b></li>
-
-								<br><li>Informe o <b>1</b> no campo <b>Valor</b> (como é 1, é opcional informar)</li>
-								<li>Informe o <b>x2</b> no campo <b>Variável</b></li>
-								<li>Clique em <b>Adicionar Valor</b></li>
-								<li>Selecione o <b>tipo de desigualdade <=</b></li>
-								<li>Informe <b>6</b> no segundo campo <b>valor</b></li>
-								<li>Clique em <b>Gravar Restrição</b></li>
-
-								<br><li>Informe o <b>3</b> no campo <b>Valor</b></li>
-								<li>Informe o <b>x1</b> no campo <b>Variável</b></li>
-								<li>Clique em <b>Adicionar Valor</b></li>
-								<li>Informe o <b>2</b> no campo <b>Valor</b></li>
-								<li>Informe o <b>x2</b> no campo <b>Variável</b></li>
-								<li>Clique em <b>Adicionar Valor</b></li>
-								<li>Selecione o <b>tipo de desigualdade <=</b></li>
-								<li>Informe <b>18</b> no segundo campo <b>valor</b></li>
-								<li>Clique em <b>Gravar Restrição</b></li>
-
-								<br><li>Marque a opção <b>Não negatividade das variáveis</b>	</li>
-							</ul>							
-						</p>
-					</p>
-					<br><h3>Calcular Max/Min Z</h3>
-					<p>
-						Após ter informado todos os valores, clique nos botões <b>Max Z</b> e <b>Min Z</b> para poder calcular o valor da função de modo a maximizar valores, e calcular o Simplex para poder minimizar valores.
-					</p>
->>>>>>> db88e88... Ajustes e adaptações
 				</div>
 
 			</div>
